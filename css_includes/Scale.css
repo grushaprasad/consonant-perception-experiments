@@ -24,14 +24,21 @@
 }
 
 .button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+    width: 70em;
+    height: 70em;
+    background: #26396B;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4em;
+    border-radius: 50px;
+    padding-left: 10em;
+    padding-right: 10em;
+    padding-top: 10em;
+    padding-bottom: 0.2em;
+    vertical-align: middle;
+    text-align: center;
 }
