@@ -1,6 +1,8 @@
 PennController.Sequence( randomize("noprecursor") , randomize("precursor") );
 PennController.ResetPrefix(null);
-PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/");
+
+PennController.PreloadZip("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/ogg.zip");
+// PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/");
 
 
 PennController.Template( PennController.defaultTable.filter("Block","without_precursor") ,
