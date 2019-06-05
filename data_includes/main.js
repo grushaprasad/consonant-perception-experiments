@@ -1,16 +1,12 @@
+PennController.Sequence( randomize("noprecursor") , randomize("precursor") );
 PennController.ResetPrefix(null);
 PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/");
 
 
-PennController.Template( PennController.defaultTable.filter("Block","1") ,
-    row => PennController( "1" ,
-        newButton("validation", "Continue")
-        .print()
-        .wait()
-        .remove()
-    ,
+PennController.Template( PennController.defaultTable.filter("Block","without_precursor") ,
+    row => PennController( "without_precursor" ,
     
-    newAudio("test sentence", "dg09_1_lowmid.mp3")
+    newAudio("noprecursor", row.fname)
         .play()
         .wait()
     ,    
@@ -21,7 +17,7 @@ PennController.Template( PennController.defaultTable.filter("Block","1") ,
         .settings.before( getText("green") )
         .print()
         .wait()
-
+    )
     .log("continuum_member", row.continuum_member)
     .log("condition", row.condition)
     .log("itemnum", row.itemnum)
@@ -31,13 +27,36 @@ PennController.Template( PennController.defaultTable.filter("Block","1") ,
 
 
 PennController(
-    newButton("validation", "Continue")
+    
+    newText("End", "You are done!")
+        .print(),
+
+
+    newButton("end_button", "Done")
         .print()
         .wait()
         .remove()
-    ,
     
-    newAudio("test sentence", "dg09_1_lowmid.mp3")
+);
+
+
+PennController(
+
+    newText("instrutions", "Instrutions")
+        .print(),
+    
+    newButton("start", "Continue")
+        .print()
+        .wait()
+        .remove()
+    
+);
+
+
+PennController.Template( PennController.defaultTable.filter("Block","with_precursor") ,
+    row => PennController( "with_precursor" ,
+    
+    newAudio("precursor", row.fname)
         .play()
         .wait()
     ,    
@@ -48,4 +67,14 @@ PennController(
         .settings.before( getText("green") )
         .print()
         .wait()
+    )
+    .log("continuum_member", row.continuum_member)
+    .log("condition", row.condition)
+    .log("itemnum", row.itemnum)
+    .log("Group", row.Group)
+    .log("Block", row.Block)
+
 );
+
+
+
