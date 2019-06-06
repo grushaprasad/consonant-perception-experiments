@@ -1,5 +1,6 @@
 td.PennController-Scale-scaleButton {
-  padding:15 25 15 25;
-  color:blue;
-  border:1px solid gray;
+    padding:15 25 15 25;
+    color:blue;
+    border:1px solid gray;
+    margin: 10px auto;
 }
