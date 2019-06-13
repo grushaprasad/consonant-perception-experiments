@@ -1,8 +1,8 @@
 PennController.Sequence( "instructions", randomize("practice_trial"), "start_exp", randomize("without_precursor") , randomize("with_precursor"), "exp_end");
 PennController.ResetPrefix(null);
 
-PennController.PreloadZip("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/mp3_test.zip");
-// PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/");
+//PennController.PreloadZip("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/mp3_test.zip");
+PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/");
 
 
 PennController("instructions",
