@@ -1,4 +1,4 @@
-PennController.Sequence( "instructions", randomize("practice_trial"), randomize("without_precursor") , randomize("with_precursor"), "exp_end");
+PennController.Sequence( "instructions", randomize("practice_trial"), "start_exp", randomize("without_precursor") , randomize("with_precursor"), "exp_end");
 PennController.ResetPrefix(null);
 
 PennController.PreloadZip("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/mp3_test.zip");
@@ -24,12 +24,7 @@ PennController("instructions",
         .remove()
     ,
 
-    newText("instrutions", "<p> There are two parts to this experiment. 
-        In the first part, you will be listening to isolated speech sounds. 
-        In the second part of the experiment these speech sounds will be preceded by a sequence of tones. 
-        Your task is to judge whether the speech sounds like it begins with <b> D </b> or a <b> G </b>. </p>
-
-        <p> Let us start with a few practice trials </p>" )
+    newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part of the experiment these speech sounds will be preceded by a sequence of tones. Your task is to judge whether the speech sounds like it begins with <b> D </b> or a <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
         .settings.size(800, 100)
         .print()
     ,
