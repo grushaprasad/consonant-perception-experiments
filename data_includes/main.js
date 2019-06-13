@@ -138,6 +138,7 @@ PennController.Template( PennController.defaultTable.filter("Block","with_precur
 PennController("exp_end",
 
     newHtml("demographics", "demographic.html")
+        .settings.log()
         .print()
     ,
 
