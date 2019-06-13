@@ -136,15 +136,23 @@ PennController.Template( PennController.defaultTable.filter("Block","with_precur
 );
 
 PennController("exp_end",
+
+    newHtml("demographic", "demographic.html")
+        .print()
+
+    newButton("end_button", "Submit results")
+        .print()
+        .wait()
+        .remove()
+
+    getHtml("demographic")
+        .remove()
     
     newText("End", "You are done!")
         .print(),
 
 
-    newButton("end_button", "Done")
-        .print()
-        .wait()
-        .remove()
+    
     
 );
 
