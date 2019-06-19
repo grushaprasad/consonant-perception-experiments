@@ -30,7 +30,7 @@ PennController("instructions",
     newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part, the speech sounds will be preceded by a sequence of tones. Your task is to judge whether the speech sound begins with <b> D </b> or <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
         .settings.size(800, 100)
         .settings.css("font-size", "larger")
-        .print()<p></p>
+        .print()
     ,
     
     newButton("start_practice1", "Begin practice")
