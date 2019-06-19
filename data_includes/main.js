@@ -45,17 +45,42 @@ PennController("instructions",
 PennController.Template( PennController.defaultTable.filter("Block","practice_trial") ,
     row => PennController( "practice_trial" ,
     
+    newText("Question", "Which sound do you hear at the beginning of the syllable?")
+        .settings.center()
+        .print()
+    ,
+    
+    newTimer("jitter", 1000)
+        .start()
+        .wait()
+    ,
+        
+    
     newAudio("practice", row.fname)
         .play()
         .wait()
     ,    
     
-    newScale("judgment",    "D", "G")
-        .settings.log()
-        .settings.labelsPosition("top")  // Position the labels
-        .settings.before( getText("green") )
+    
+    newCanvas("two shapes", 820, 600)
+        .settings.add(   300, 50, 
+            newImage("D", "D.jpg") 
+                .settings.size(50,50))
+        .settings.add( 475, 50, 
+            newImage("G", "G.png")
+                .settings.size(50,50))
         .print()
+    ,
+    newSelector("shape")
+        .settings.log()
+        .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+    
+    newTimer("ITI", 1000)
+        .start()
+        .wait()
+    
     )
 
     .log("continuum_member", row.continuum_member)
@@ -71,6 +96,7 @@ PennController("start_exp",
 
 
     newText("begin_exp", "<p> You are done with the practice trials. Begin the experiment when you are ready.  </p>" )
+        .settings.center()
         .settings.size(800, 100)
         .print()
     ,
@@ -102,6 +128,7 @@ PennController.Template( PennController.defaultTable.filter("Block","without_pre
         .print()
         .wait()
     )
+    
     .log("continuum_member", row.continuum_member)
     .log("condition", row.condition)
     .log("itemnum", row.itemnum)
@@ -150,12 +177,14 @@ PennController("exp_end",
     )
     ,
 
+    getHtml("demographics")
+        .remove()
+    ,
    
     newText("End", "Thank you for participating in the experiment")
         .print()
+        .wait()
     ,
 
     
 );
-
-
