@@ -1,4 +1,5 @@
-PennController.Sequence( "instructions", randomize("practice_trial"), "start_exp", randomize("without_precursor") , randomize("with_precursor"), "exp_end");
+PennController.Sequence( "instructions", randomize("practice_trial1"), "start_exp1", randomize("without_precursor"), "end_part1", randomize("practice_trial2"), "start_exp2", randomize("with_precursor"), "demographic", "exp_end");
+
 PennController.ResetPrefix(null);
 
 //PennController.PreloadZip("https://consonant-perception-exp1.s3.us-east-2.amazonaws.com/mp3_test.zip");
@@ -8,6 +9,7 @@ PennController.AddHost("https://consonant-perception-exp1.s3.us-east-2.amazonaws
 PennController("instructions",
 
     newTextInput("worker_id", "Please enter your MTurk worker ID")
+        .settings.css("font-size", "larger")
         .settings.log()
         .settings.lines(0)
         .settings.size(400, 50)
@@ -15,6 +17,7 @@ PennController("instructions",
     ,
 
     newButton("enter_id", "Continue")
+        .settings.css("font-size", "larger")
         .print()
         .wait()
         .remove()
@@ -24,12 +27,14 @@ PennController("instructions",
         .remove()
     ,
 
-    newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part of the experiment these speech sounds will be preceded by a sequence of tones. Your task is to judge whether the speech sounds like it begins with <b> D </b> or a <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
+    newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part, the speech sounds will be preceded by a sequence of tones. Your task is to judge whether the speech sound begins with <b> D </b> or <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
         .settings.size(800, 100)
-        .print()
+        .settings.css("font-size", "larger")
+        .print()<p></p>
     ,
     
-    newButton("start_practice", "Begin practice")
+    newButton("start_practice1", "Begin practice")
+        .settings.css("font-size", "larger")
         .settings.center()
         .print()
         .wait()
@@ -42,15 +47,16 @@ PennController("instructions",
 );
 
 
-PennController.Template( PennController.defaultTable.filter("Block","practice_trial") ,
-    row => PennController( "practice_trial" ,
+PennController.Template( PennController.defaultTable.filter("Block","practice_trial1") ,
+    row => PennController( "practice_trial1" ,
     
     newText("Question", "Which sound do you hear at the beginning of the syllable?")
         .settings.center()
+        .settings.css("font-size", "larger")
         .print()
     ,
     
-    newTimer("jitter", 1000)
+    newTimer("jitter", 500)
         .start()
         .wait()
     ,
@@ -62,7 +68,7 @@ PennController.Template( PennController.defaultTable.filter("Block","practice_tr
     ,    
     
     
-    newCanvas("two shapes", 820, 600)
+    newCanvas("consonants", 820, 600)
         .settings.add(   300, 50, 
             newImage("D", "D.jpg") 
                 .settings.size(50,50))
@@ -71,7 +77,7 @@ PennController.Template( PennController.defaultTable.filter("Block","practice_tr
                 .settings.size(50,50))
         .print()
     ,
-    newSelector("shape")
+    newSelector("consonant")
         .settings.log()
         .settings.add( getImage("D") , getImage("G") )
         .wait()
@@ -92,23 +98,26 @@ PennController.Template( PennController.defaultTable.filter("Block","practice_tr
 
 
 
-PennController("start_exp",
+PennController("start_exp1",
 
 
-    newText("begin_exp", "<p> You are done with the practice trials. Begin the experiment when you are ready.  </p>" )
+    newText("begin_exp", "<p> You are done with the practice trials. Begin the first part of the experiment when you are ready.  </p>" )
         .settings.center()
+        .settings.css("font-size", "larger")
         .settings.size(800, 100)
         .print()
     ,
     
     newButton("start_experiment", "Begin experiment")
         .settings.center()
+        .settings.css("font-size", "larger")
         .print()
         .wait()
         .remove()
     ,
 
     getText("begin_exp")
+        .remove()
     
 );
 
@@ -116,17 +125,43 @@ PennController("start_exp",
 PennController.Template( PennController.defaultTable.filter("Block","without_precursor") ,
     row => PennController( "without_precursor" ,
     
+    
+    newText("Question", "Which sound do you hear at the beginning of the syllable?")
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .print()
+    ,
+    
+    newTimer("jitter", 500)
+        .start()
+        .wait()
+    ,
+
     newAudio("noprecursor", row.fname)
         .play()
         .wait()
     ,    
     
-    newScale("judgment",    "D", "G")
-        .settings.log()
-        .settings.labelsPosition("top")  // Position the labels
-        .settings.before( getText("green") )
+    newCanvas("consonants", 820, 600)
+        .settings.add(   300, 50, 
+            newImage("D", "D.jpg") 
+                .settings.size(50,50))
+        .settings.add( 475, 50, 
+            newImage("G", "G.png")
+                .settings.size(50,50))
         .print()
+    ,
+
+    newSelector("consonant")
+        .settings.log()
+        .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+    
+    newTimer("ITI", 1000)
+        .start()
+        .wait()
+    
     )
     
     .log("continuum_member", row.continuum_member)
@@ -136,24 +171,147 @@ PennController.Template( PennController.defaultTable.filter("Block","without_pre
     .log("Block", row.Block)
 );
 
+
+PennController("end_part1",
+
+
+    newText("end_part1_text", "<p> You are done with the first part of the experiment. As a reminder, in the second part of the experiment, the speech sounds will be preceded by a sequence of tones. Your task is still the same. You need to judge whether the speech sound begins with <b> D </b> or <b> G </b>  </p> <p> Let us start with a few practice trials." )
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .settings.size(800, 100)
+        .print()
+    ,
+    
+    newButton("start_practice2", "Begin practice")
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .print()
+        .wait()
+        .remove()
+    ,
+
+    getText("end_part1_text")
+        .remove()
+    
+);
+
+
+PennController.Template( PennController.defaultTable.filter("Block","practice_trial2") ,
+    row => PennController( "practice_trial2" ,
+    
+    newText("Question", "Which sound do you hear at the beginning of the syllable?")
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .print()
+    ,
+    
+    newTimer("jitter", 500)
+        .start()
+        .wait()
+    ,
+        
+    
+    newAudio("practice2", row.fname)
+        .play()
+        .wait()
+    ,    
+    
+    
+    newCanvas("consonants", 820, 600)
+        .settings.add(   300, 50, 
+            newImage("D", "D.jpg") 
+                .settings.size(50,50))
+        .settings.add( 475, 50, 
+            newImage("G", "G.png")
+                .settings.size(50,50))
+        .print()
+    ,
+    newSelector("consonant")
+        .settings.log()
+        .settings.add( getImage("D") , getImage("G") )
+        .wait()
+    ,
+    
+    newTimer("ITI", 1000)
+        .start()
+        .wait()
+    
+    )
+
+    .log("continuum_member", row.continuum_member)
+    .log("condition", row.condition)
+    .log("itemnum", row.itemnum)
+    .log("Group", row.Group)
+    .log("Block", row.Block)
+);
+
+
+PennController("start_exp2",
+
+
+    newText("begin_exp2", "<p> You are done with the practice trials. Begin the second part of the experiment when you are ready.  </p>" )
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .settings.size(800, 100)
+        .print()
+    ,
+    
+    newButton("start_experiment", "Continue experiment")
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .print()
+        .wait()
+        .remove()
+    ,
+
+    getText("begin_exp2")
+        .remove()
+    
+);
 
 
 
 PennController.Template( PennController.defaultTable.filter("Block","with_precursor") ,
     row => PennController( "with_precursor" ,
     
+    newText("Question", "Which sound do you hear at the beginning of the syllable?")
+        .settings.center()
+        .settings.css("font-size", "larger")
+        .print()
+    ,
+    
+    newTimer("jitter", 500)
+        .start()
+        .wait()
+    ,
+        
+
     newAudio("precursor", row.fname)
         .play()
         .wait()
     ,    
     
-    newScale("judgment",    "D", "G")
-        .settings.log()
-        .settings.labelsPosition("top")  // Position the labels
-        .settings.before( getText("green") )
+    newCanvas("consonants", 820, 600)
+        .settings.add(   300, 50, 
+            newImage("D", "D.jpg") 
+                .settings.size(50,50))
+        .settings.add( 475, 50, 
+            newImage("G", "G.png")
+                .settings.size(50,50))
         .print()
+    ,
+    newSelector("consonant")
+        .settings.log()
+        .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+    
+    newTimer("ITI", 1000)
+        .start()
+        .wait()
+    
     )
+
     .log("continuum_member", row.continuum_member)
     .log("condition", row.condition)
     .log("itemnum", row.itemnum)
@@ -162,29 +320,32 @@ PennController.Template( PennController.defaultTable.filter("Block","with_precur
 
 );
 
-PennController("exp_end",
+PennController("demographic",
 
     newHtml("demographics", "demographic.html")
         .settings.log()
         .print()
     ,
 
-    newButton("continue", "Continue to the next page")
-    .print()
-    .wait(
-        getHtml("demographics").test.complete()
-            .failure( getHtml("demographics").warn() )
-    )
-    ,
-
-    getHtml("demographics")
-        .remove()
-    ,
-   
-    newText("End", "Thank you for participating in the experiment")
+    newButton("continue", "Finish experiment")
+        .settings.css("font-size", "larger")
         .print()
-        .wait()
+        .wait(
+            getHtml("demographics").test.complete()
+                .failure( getHtml("demographics").warn() )
+        )
     ,
 
-    
 );
+
+PennController.SendResults();
+
+PennController("exp_end", 
+    newText("end", "Thank your for participating in this experiment. Your survey code is GJsw5uYoPQa")
+        .print()
+    ,
+
+    newTimer("forever", 1)
+        .wait()            // Timer never started: will wait forever
+)
+.setOption("countsForProgressBar",false);
