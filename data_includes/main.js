@@ -175,7 +175,7 @@ PennController.Template( PennController.defaultTable.filter("Block","without_pre
 PennController("end_part1",
 
 
-    newText("end_part1_text", "<p> You are done with the first part of the experiment. As a reminder, in the second part of the experiment, the speech sounds will be preceded by a sequence of tones. Your task is still the same. You need to judge whether the speech sound begins with <b> D </b> or <b> G </b>  </p> <p> Let us start with a few practice trials." )
+    newText("end_part1_text", "<p> You are done with the first part of the experiment. As a reminder, in the second part of the experiment, the speech sounds will be preceded by a sequence of tones. Your task is still the same. You need to judge whether the speech sound begins with <b> D </b> or <b> G </b>. Let us start with a few practice trials." )
         .settings.center()
         .settings.css("font-size", "larger")
         .settings.size(800, 100)
@@ -196,7 +196,7 @@ PennController("end_part1",
 );
 
 
-PennController.Template( PennController.defaultTable.filter("Block","practice_trial2") ,
+PennController.Template(PennController.defaultTable.filter("Block","practice_trial2") ,
     row => PennController( "practice_trial2" ,
     
     newText("Question", "Which sound do you hear at the beginning of the syllable?")
@@ -334,14 +334,12 @@ PennController("demographic",
             getHtml("demographics").test.complete()
                 .failure( getHtml("demographics").warn() )
         )
-    ,
-
 );
 
 PennController.SendResults();
 
 PennController("exp_end", 
-    newText("end", "Thank your for participating in this experiment. Your survey code is GJsw5uYoPQa")
+    newText("end", "Thank you for participating in this experiment. Your survey code is GJsw5uYoPQa")
         .print()
     ,
 
