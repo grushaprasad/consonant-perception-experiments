@@ -27,7 +27,7 @@ PennController("instructions",
         .remove()
     ,
 
-    newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part, the speech sounds will be preceded by a sequence of tones. Your task is to judge whether the speech sound begins with <b> D </b> or <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
+    newText("instrutions", "<p> There are two parts to this experiment. In the first part, you will be listening to isolated speech sounds. In the second part, each speech sound will be preceded by a sequence of tones. In both parts of the experiment, your task is to judge whether the speech sound begins with <b> D </b> or <b> G </b>. </p><p> Let us start with a few practice trials </p>" )
         .settings.size(800, 100)
         .settings.css("font-size", "larger")
         .print()
@@ -81,6 +81,10 @@ PennController.Template( PennController.defaultTable.filter("Block","practice_tr
         .settings.log()
         .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+
+    getCanvas("consonants")
+        .remove()
     ,
     
     newTimer("ITI", 1000)
@@ -158,6 +162,10 @@ PennController.Template( PennController.defaultTable.filter("Block","without_pre
         .wait()
     ,
     
+    getCanvas("consonants")
+        .remove()
+    ,
+
     newTimer("ITI", 1000)
         .start()
         .wait()
@@ -175,7 +183,7 @@ PennController.Template( PennController.defaultTable.filter("Block","without_pre
 PennController("end_part1",
 
 
-    newText("end_part1_text", "<p> You are done with the first part of the experiment. As a reminder, in the second part of the experiment, the speech sounds will be preceded by a sequence of tones. Your task is still the same. You need to judge whether the speech sound begins with <b> D </b> or <b> G </b>. Let us start with a few practice trials." )
+    newText("end_part1_text", "<p> You are done with the first part of the experiment. As a reminder, in the next part, each speech sound will be preceded by a sequence of tones. Your task is still the same. You need to judge whether the speech sound begins with <b> D </b> or <b> G </b>. Let us start with a few practice trials." )
         .settings.center()
         .settings.css("font-size", "larger")
         .settings.size(800, 100)
@@ -226,10 +234,15 @@ PennController.Template(PennController.defaultTable.filter("Block","practice_tri
                 .settings.size(50,50))
         .print()
     ,
+
     newSelector("consonant")
         .settings.log()
         .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+
+    getCanvas("consonants")
+        .remove()
     ,
     
     newTimer("ITI", 1000)
@@ -304,6 +317,10 @@ PennController.Template( PennController.defaultTable.filter("Block","with_precur
         .settings.log()
         .settings.add( getImage("D") , getImage("G") )
         .wait()
+    ,
+    
+    getCanvas("consonants")
+        .remove()
     ,
     
     newTimer("ITI", 1000)
