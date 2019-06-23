@@ -1,4 +1,4 @@
-PennController.Sequence( "instructions", randomize("practice_trial1"), "start_exp1", randomize("without_precursor"), "end_part1", randomize("practice_trial2"), "start_exp2", randomize("with_precursor"), "demographic", "exp_end");
+PennController.Sequence( "instructions", randomize("practice_trial1"), "start_exp1", randomize("without_precursor"), "end_part1", randomize("practice_trial2"), "start_exp2", randomize("with_precursor"), "demographic", "send_results", "exp_end");
 
 PennController.ResetPrefix(null);
 
@@ -322,7 +322,7 @@ PennController.Template( PennController.defaultTable.filter("Block","with_precur
     getCanvas("consonants")
         .remove()
     ,
-    
+
     newTimer("ITI", 1000)
         .start()
         .wait()
@@ -353,7 +353,7 @@ PennController("demographic",
         )
 );
 
-PennController.SendResults();
+PennController.SendResults("send_results");
 
 PennController("exp_end", 
     newText("end", "Thank you for participating in this experiment. Your survey code is GJsw5uYoPQa")
